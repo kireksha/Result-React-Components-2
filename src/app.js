@@ -31,26 +31,25 @@ export const App = () => {
 						<p>{steps[activeIndex].content}</p>
 					</div>
 					<ul className={styles['steps-list']}>
-						{steps.map((item) => {
-							const currIndex = steps.indexOf(item);
-							let classListString = '';
-							if (currIndex < activeIndex) {
-								classListString = `${styles['steps-item']} ${styles.done}`;
-							} else if (currIndex === activeIndex) {
-								classListString = `${styles['steps-item']} ${styles.done} ${styles.active}`;
-							} else {
-								classListString = `${styles['steps-item']}`;
-							}
-
+						{steps.map((item, index) => {
 							return (
-								<li className={classListString} key={item.id}>
+								<li
+									className={
+										styles['steps-item'] +
+										(index === activeIndex
+											? ` ${styles.active}`
+											: '') +
+										(index < activeIndex ? ` ${styles.done}` : '')
+									}
+									key={item.id}
+								>
 									<button
 										className={styles['steps-item-button']}
-										onClick={() => setActiveIndex(currIndex)}
+										onClick={() => setActiveIndex(index)}
 									>
-										{currIndex + 1}
+										{index + 1}
 									</button>
-									{`Шаг ${currIndex + 1}`}
+									{`Шаг ${index + 1}`}
 								</li>
 							);
 						})}
